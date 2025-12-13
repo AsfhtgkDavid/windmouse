@@ -1,7 +1,14 @@
+import enum
+import time
 from abc import ABC, abstractmethod
 from typing import NewType, Generator
 
 import numpy as np
+
+GRAVITY_MAGNITUDE_DEFAULT = 9
+WIND_MAGNITUDE_DEFAULT = 3
+MAX_STEP_DEFAULT = 15
+DAMPED_DISTANCE_DEFAULT = 12
 
 Coordinate = NewType("Coordinate", int)
 
@@ -14,10 +21,10 @@ def wind_mouse(
     start_y: Coordinate,
     dest_x: Coordinate,
     dest_y: Coordinate,
-    gravity_magnitude: float = 9,
-    wind_magnitude: float = 3,
-    max_step: float = 15,
-    damped_distance: float = 12,
+    gravity_magnitude: float = GRAVITY_MAGNITUDE_DEFAULT,
+    wind_magnitude: float = WIND_MAGNITUDE_DEFAULT,
+    max_step: float = MAX_STEP_DEFAULT,
+    damped_distance: float = DAMPED_DISTANCE_DEFAULT,
 ) -> Generator[tuple[Coordinate, Coordinate], None, None]:
     """
     WindMouse algorithm.
@@ -70,12 +77,20 @@ def wind_mouse(
             yield Coordinate(move_x), Coordinate(move_y)
 
 
+class HoldMouseButton(enum.Enum):
+    NONE = enum.auto()
+    LEFT = enum.auto()
+    RIGHT = enum.auto()
+    MIDDLE = enum.auto()
+
+
 class AbstractMouseController(ABC):
     """
     Abstract Mouse controller class.
     """
 
-    @abstractmethod
+    _create_generator: bool
+
     def __init__(
         self,
         start_x: Coordinate | None = None,
@@ -83,10 +98,10 @@ class AbstractMouseController(ABC):
         dest_x: Coordinate | None = None,
         dest_y: Coordinate | None = None,
         *,
-        gravity_magnitude: float | None = None,
-        wind_magnitude: float | None = None,
-        max_step: float | None = None,
-        damped_distance: float | None = None,
+        gravity_magnitude: float = GRAVITY_MAGNITUDE_DEFAULT,
+        wind_magnitude: float = WIND_MAGNITUDE_DEFAULT,
+        max_step: float = MAX_STEP_DEFAULT,
+        damped_distance: float = DAMPED_DISTANCE_DEFAULT,
     ):
         """
         Initialize Mouse controller.
@@ -103,43 +118,201 @@ class AbstractMouseController(ABC):
             max_step: See :py:attr: `core.wind_mouse.max_step`
             damped_distance: See :py:attr: `core.wind_mouse.damped_distance`
         """
+        self._start_x = start_x
+        self._start_y = start_y
+        self._dest_x = dest_x
+        self._dest_y = dest_y
+        self._gravity_magnitude = gravity_magnitude
+        self._wind_magnitude = wind_magnitude
+        self._max_step = max_step
+        self._damped_distance = damped_distance
 
-    @abstractmethod
-    def tick(self) -> bool:
-        """
-        Move mouse for one point
+        self._create_generator = True
 
-        Return:
-            True if movement was successful, False otherwise (for example there are not more points)
+    def move_to_target(
+        self,
+        tick_delay: float = 0,
+        step_duration: float = 0.1,
+        hold_button: HoldMouseButton = HoldMouseButton.NONE,
+    ) -> None:
         """
-
-    @abstractmethod
-    def move_to_target(self, delay: float, speed: float) -> None:
-        """
-        Move mouse to target coordinate without yielding (automatically)
+        Moves the mouse to the target coordinates using a generated path.
 
         Args:
-            delay: Delay between ticks
-            speed: Moving speed between 'wind' points.
+            tick_delay: Sleep time between movement updates (in seconds).
+            step_duration: Duration of each movement step. Lower values result in faster overall movement.
+            hold_button: Which mouse button to hold down during movement (for drag & drop).
         """
+        if hold_button != HoldMouseButton.NONE:
+            self._hold_mouse_button(hold_button)
+
+        while self.tick(step_duration):
+            time.sleep(tick_delay)
+
+        if hold_button != HoldMouseButton.NONE:
+            self._release_mouse_button(hold_button)
 
     @property
-    @abstractmethod
-    def x(self) -> Coordinate:
+    def start_x(self) -> Coordinate | None:
         """
-        Target x coordinate
+        Start x coordinate
+        None means current mouse x coordinate
         """
+        return self._start_x
+
+    @start_x.setter
+    def start_x(self, value: Coordinate | None) -> None:
+        self._start_x = value
+        self._create_generator = True
 
     @property
-    @abstractmethod
-    def y(self) -> Coordinate:
+    def start_y(self) -> Coordinate | None:
         """
-        Target y coordinate
+        Start y coordinate
+        None means current mouse y coordinate
         """
+        return self._start_y
+
+    @start_y.setter
+    def start_y(self, value: Coordinate | None) -> None:
+        self._start_y = value
+        self._create_generator = True
 
     @property
-    @abstractmethod
-    def target(self) -> tuple[Coordinate, Coordinate]:
+    def start_position(self) -> tuple[Coordinate | None, Coordinate | None]:
         """
-        Synonym for `self.x` and `self.y`
+        Synonym for `self.start_x`, `self.start_y`
+        """
+        return self.start_x, self.start_y
+
+    @start_position.setter
+    def start_position(self, value: tuple[Coordinate, Coordinate]) -> None:
+        self.start_x, self.start_y = value
+
+    @property
+    def dest_x(self) -> Coordinate | None:
+        """
+        Destination x coordinate
+        """
+        return self._dest_x
+
+    @dest_x.setter
+    def dest_x(self, value: Coordinate) -> None:
+        self._dest_x = value
+        self._create_generator = True
+
+    @property
+    def dest_y(self) -> Coordinate | None:
+        """
+        Destination y coordinate
+        """
+        return self._dest_y
+
+    @dest_y.setter
+    def dest_y(self, value: Coordinate) -> None:
+        self._dest_y = value
+        self._create_generator = True
+
+    @property
+    def dest_position(self) -> tuple[Coordinate | None, Coordinate | None]:
+        """
+        Synonym for `self.dest_x`, `self.dest_y`
+        """
+        return self.dest_x, self.dest_y
+
+    @dest_position.setter
+    def dest_position(self, value: tuple[Coordinate, Coordinate]) -> None:
+        self.dest_x, self.dest_y = value
+
+    def _recreate_generator(self) -> None:
+        """
+        Recreate generator if needed
+
+        If start coordinates are not set, get current mouse coordinates.
+
+        Raises:
+            ValueError: If destination coordinates are not set
+        """
+        if not self._create_generator:
+            return
+        self._start_x = self._start_x or self._get_current_mouse_x()
+        self._start_y = self._start_y or self._get_current_mouse_y()
+
+        if self._dest_x is None or self._dest_y is None:
+            raise ValueError(
+                "Destination coordinates must be set before creating generator."
+            )
+
+        self._generator = wind_mouse(
+            self._start_x,
+            self._start_y,
+            self._dest_x,
+            self._dest_y,
+            self._gravity_magnitude,
+            self._wind_magnitude,
+            self._max_step,
+            self._damped_distance,
+        )
+        self._create_generator = False
+
+    def _get_next_point(self) -> tuple[Coordinate, Coordinate] | None:
+        """
+        Get next point from generator
+
+        If needed, recreate generator.
+
+        Returns:
+            Tuple of x, y coordinates or None if generator is exhausted
+        """
+        self._recreate_generator()
+        try:
+            return next(self._generator)
+        except StopIteration:
+            return None
+
+    @abstractmethod
+    def tick(self, step_duration: float = 0.1) -> bool:
+        """
+        Advances the mouse cursor to the next point in the trajectory.
+
+        This method is designed to be called iteratively in a loop.
+        It moves the mouse one step towards the current target.
+
+        Args:
+            step_duration: The duration of this single movement step (in seconds).
+                           Used to control the overall speed of the gesture.
+
+        Return:
+            True if the cursor moved to a new point (movement continues).
+            False if the target has been reached or no path remains.
+        """
+
+    @abstractmethod
+    def _hold_mouse_button(self, button: HoldMouseButton) -> None:
+        """
+        Hold left mouse button
+
+        Args:
+            button: Which mouse button to hold down
+        """
+
+    @abstractmethod
+    def _release_mouse_button(self, button: HoldMouseButton) -> None:
+        """
+        Release left mouse button
+
+        Args:
+            button: Which mouse button to release
+        """
+
+    @abstractmethod
+    def _get_current_mouse_x(self) -> Coordinate:
+        """
+        Get current mouse x coordinate
+        """
+
+    @abstractmethod
+    def _get_current_mouse_y(self) -> Coordinate:
+        """
+        Get current mouse y coordinate
         """
