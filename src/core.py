@@ -146,6 +146,8 @@ class AbstractMouseController(ABC):
         if hold_button != HoldMouseButton.NONE:
             self._hold_mouse_button(hold_button)
 
+        self._create_generator = True
+
         while self.tick(step_duration):
             time.sleep(tick_delay)
 
