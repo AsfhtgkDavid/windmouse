@@ -26,19 +26,7 @@ class PyautoguiMouseController(AbstractMouseController):
         return Coordinate(pyautogui.position().y)
 
     def _hold_mouse_button(self, button: HoldMouseButton) -> None:
-        match button:
-            case HoldMouseButton.LEFT:
-                pyautogui.mouseDown(button="left")
-            case HoldMouseButton.RIGHT:
-                pyautogui.mouseDown(button="right")
-            case HoldMouseButton.MIDDLE:
-                pyautogui.mouseDown(button="middle")
+        pyautogui.mouseDown(button=button.value)
 
     def _release_mouse_button(self, button: HoldMouseButton) -> None:
-        match button:
-            case HoldMouseButton.LEFT:
-                pyautogui.mouseUp(button="left")
-            case HoldMouseButton.RIGHT:
-                pyautogui.mouseUp(button="right")
-            case HoldMouseButton.MIDDLE:
-                pyautogui.mouseUp(button="middle")
+        pyautogui.mouseUp(button=button.value)

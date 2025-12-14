@@ -78,10 +78,10 @@ def wind_mouse(
 
 
 class HoldMouseButton(enum.Enum):
-    NONE = enum.auto()
-    LEFT = enum.auto()
-    RIGHT = enum.auto()
-    MIDDLE = enum.auto()
+    NONE = "none"
+    LEFT = "left"
+    RIGHT = "right"
+    MIDDLE = "middle"
 
 
 class AbstractMouseController(ABC):
