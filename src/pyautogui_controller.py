@@ -1,5 +1,4 @@
-from core import AbstractMouseController, HoldMouseButton
-from core import Coordinate
+from .core import AbstractMouseController, HoldMouseButton, Coordinate
 
 try:
     import pyautogui

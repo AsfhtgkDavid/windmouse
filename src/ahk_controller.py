@@ -1,7 +1,7 @@
 import sys
-from typing import Any, reveal_type
+from typing import Any
 
-from core import (
+from .core import (
     AbstractMouseController,
     HoldMouseButton,
     Coordinate,
