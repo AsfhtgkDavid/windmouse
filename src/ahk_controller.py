@@ -1,4 +1,3 @@
-import sys
 from typing import Any
 
 from .core import (
@@ -11,13 +10,7 @@ from .core import (
     DAMPED_DISTANCE_DEFAULT,
 )
 
-if sys.platform == "win32":
-    try:
-        from ahk import AHK
-    except ImportError:
-        raise OSError("You need install windmouse[ahk] extra to use ahk")
-else:
-    raise OSError("Ahk available only for Windows")
+from ahk import AHK
 
 
 class AHKMouseController(AbstractMouseController):
