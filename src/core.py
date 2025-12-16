@@ -1,7 +1,9 @@
+"""Core module for mouse movement using WindMouse algorithm."""
+
 import enum
 import time
 from abc import ABC, abstractmethod
-from typing import NewType, Generator
+from typing import Generator, NewType
 
 import numpy as np
 
@@ -140,7 +142,8 @@ class AbstractMouseController(ABC):
 
         Args:
             tick_delay: Sleep time between movement updates (in seconds).
-            step_duration: Duration of each movement step. Lower values result in faster overall movement.
+            step_duration: Duration of each movement step.
+                           Lower values result in faster overall movement.
             hold_button: Which mouse button to hold down during movement (for drag & drop).
         """
         if hold_button != HoldMouseButton.NONE:
@@ -245,15 +248,17 @@ class AbstractMouseController(ABC):
                 "Destination coordinates must be set before creating generator."
             )
 
-        self._generator = wind_mouse(
-            self._start_x,
-            self._start_y,
-            self._dest_x,
-            self._dest_y,
-            self._gravity_magnitude,
-            self._wind_magnitude,
-            self._max_step,
-            self._damped_distance,
+        self._generator = (  # pylint: disable=attribute-defined-outside-init
+            wind_mouse(
+                self._start_x,
+                self._start_y,
+                self._dest_x,
+                self._dest_y,
+                self._gravity_magnitude,
+                self._wind_magnitude,
+                self._max_step,
+                self._damped_distance,
+            )
         )
         self._create_generator = False
 
@@ -318,3 +323,15 @@ class AbstractMouseController(ABC):
         """
         Get current mouse y coordinate
         """
+
+
+__all__ = [
+    "AbstractMouseController",
+    "HoldMouseButton",
+    "Coordinate",
+    "GRAVITY_MAGNITUDE_DEFAULT",
+    "WIND_MAGNITUDE_DEFAULT",
+    "MAX_STEP_DEFAULT",
+    "DAMPED_DISTANCE_DEFAULT",
+    "wind_mouse",
+]

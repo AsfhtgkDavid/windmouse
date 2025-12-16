@@ -1,16 +1,19 @@
 from typing import Any
 
 from .core import (
-    AbstractMouseController,
-    HoldMouseButton,
-    Coordinate,
-    GRAVITY_MAGNITUDE_DEFAULT,
-    WIND_MAGNITUDE_DEFAULT,
-    MAX_STEP_DEFAULT,
     DAMPED_DISTANCE_DEFAULT,
+    GRAVITY_MAGNITUDE_DEFAULT,
+    MAX_STEP_DEFAULT,
+    WIND_MAGNITUDE_DEFAULT,
+    AbstractMouseController,
+    Coordinate,
+    HoldMouseButton,
 )
 
-from ahk import AHK
+try:
+    from ahk import AHK
+except ImportError as e:
+    raise OSError("You need install windmouse[ahk]") from e
 
 
 class AHKMouseController(AbstractMouseController):
@@ -43,7 +46,9 @@ class AHKMouseController(AbstractMouseController):
         coords = self._get_next_point()
         if coords is None:
             return False
-        self._ahk.mouse_move(coords[0], coords[1], speed=step_duration, coord_mode="Screen")  # type: ignore[call-overload]
+        self._ahk.mouse_move(
+            coords[0], coords[1], speed=step_duration, coord_mode="Screen"
+        )  # type: ignore[call-overload]
         return True
 
     def _get_current_mouse_x(self) -> Coordinate:

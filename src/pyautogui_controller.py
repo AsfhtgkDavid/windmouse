@@ -1,9 +1,9 @@
-from .core import AbstractMouseController, HoldMouseButton, Coordinate
+from .core import AbstractMouseController, Coordinate, HoldMouseButton
 
 try:
     import pyautogui
-except ImportError:
-    raise OSError("You need install windmouse[pyautogui]")
+except ImportError as e:
+    raise OSError("You need install windmouse[pyautogui]") from e
 
 
 class PyautoguiMouseController(AbstractMouseController):
