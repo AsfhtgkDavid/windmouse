@@ -23,7 +23,7 @@ jobs:
         run: uv build
 
       - name: Install twine for distribution check
-        run: uv pip install --system twine
+        run: uv pip install twine
 
       - name: Check distribution
         run: twine check dist/*
