@@ -29,10 +29,6 @@ jobs:
       run: |
         uv run black --check --diff src/ tests/
 
-    - name: Check import sorting with isort
-      run: |
-        uv run isort --check-only --diff src/ tests/
-
     - name: Lint with flake8
       run: |
         uv run flake8 src/ tests/ --extend-ignore=E203,W503

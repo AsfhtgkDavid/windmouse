@@ -23,9 +23,12 @@ class TestPackageImports:
 
     def test_import_constants(self):
         """Test importing default constants."""
-        from windmouse.core import (DAMPED_DISTANCE_DEFAULT,
-                                    GRAVITY_MAGNITUDE_DEFAULT,
-                                    MAX_STEP_DEFAULT, WIND_MAGNITUDE_DEFAULT)
+        from windmouse.core import (
+            DAMPED_DISTANCE_DEFAULT,
+            GRAVITY_MAGNITUDE_DEFAULT,
+            MAX_STEP_DEFAULT,
+            WIND_MAGNITUDE_DEFAULT,
+        )
 
         assert GRAVITY_MAGNITUDE_DEFAULT == 9
         assert WIND_MAGNITUDE_DEFAULT == 3
