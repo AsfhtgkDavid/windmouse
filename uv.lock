@@ -3173,6 +3173,17 @@ all = [
     { name = "ahk" },
     { name = "pyautogui" },
 ]
+docs = [
+    { name = "sphinx", version = "7.1.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "sphinx", version = "7.4.7", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "sphinx", version = "8.1.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
+    { name = "sphinx", version = "8.2.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "sphinx-autodoc-typehints", version = "2.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.9'" },
+    { name = "sphinx-autodoc-typehints", version = "2.3.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.9.*'" },
+    { name = "sphinx-autodoc-typehints", version = "3.0.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
+    { name = "sphinx-autodoc-typehints", version = "3.5.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "sphinx-rtd-theme" },
+]
 pyautogui = [
     { name = "pyautogui" },
 ]
@@ -3240,8 +3251,11 @@ requires-dist = [
     { name = "numpy", specifier = ">=1.22.0" },
     { name = "pyautogui", marker = "extra == 'all'", specifier = ">=0.9.50" },
     { name = "pyautogui", marker = "extra == 'pyautogui'", specifier = ">=0.9.50" },
+    { name = "sphinx", marker = "extra == 'docs'", specifier = ">=4.0.0" },
+    { name = "sphinx-autodoc-typehints", marker = "extra == 'docs'", specifier = ">=1.12.0" },
+    { name = "sphinx-rtd-theme", marker = "extra == 'docs'", specifier = ">=1.0.0" },
 ]
-provides-extras = ["ahk", "pyautogui", "all"]
+provides-extras = ["ahk", "pyautogui", "all", "docs"]
 
 [package.metadata.requires-dev]
 ahk = [{ name = "ahk", specifier = ">=1.0.0" }]
