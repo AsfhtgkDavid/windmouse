@@ -1,0 +1,41 @@
+codecov:
+  notify:
+    require_ci_to_pass: true
+
+coverage:
+  precision: 2
+  round: down
+  range: "70...100"
+
+  status:
+    project:
+      default:
+        target: 70%
+        threshold: 2%
+        informational: false
+    patch:
+      default:
+        target: 60%
+        threshold: 5%
+        informational: false
+
+flags:
+  rust:
+    paths:
+      - src/
+    carryforward: true
+
+ignore:
+  - "target/**/*"
+  - "**/*.d"
+  - "assets/**/*"
+  - ".github/**/*"
+  - "CONTRIBUTING.md"
+  - "README.md"
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+  require_base: false
+  require_head: true

@@ -1,0 +1,83 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        python-version: "3.12"
+        enable-cache: true
+
+    - name: Install dependencies
+      run: |
+        uv sync --dev --locked --all-extras
+
+    - name: Check code formatting with black
+      run: |
+        black --check --diff src/ tests/
+
+    - name: Check import sorting with isort
+      run: |
+        isort --check-only --diff src/ tests/
+
+    - name: Lint with flake8
+      run: |
+        flake8 src/ tests/ --extend-ignore=E203,W503
+      continue-on-error: true
+
+    - name: Lint with pylint
+      run: |
+        pylint src/ --disable=C0111,R0913,R0902,C0103
+      continue-on-error: true
+
+    - name: Type check with mypy
+      run: |
+        mypy src/ --ignore-missing-imports
+      continue-on-error: true
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        python-version: "3.12"
+        enable-cache: true
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        uv sync --dev --locked --all-extras
+        uv pip install safety bandit
+
+    - name: Check dependencies for vulnerabilities
+      run: |
+        safety check --json
+      continue-on-error: true
+
+    - name: Security scan with bandit
+      run: |
+        bandit -r src/ -ll
+      continue-on-error: true
+
