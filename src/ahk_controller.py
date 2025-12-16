@@ -2,15 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from .core import (
-    DAMPED_DISTANCE_DEFAULT,
-    GRAVITY_MAGNITUDE_DEFAULT,
-    MAX_STEP_DEFAULT,
-    WIND_MAGNITUDE_DEFAULT,
-    AbstractMouseController,
-    Coordinate,
-    HoldMouseButton,
-)
+from .core import (DAMPED_DISTANCE_DEFAULT, GRAVITY_MAGNITUDE_DEFAULT,
+                   MAX_STEP_DEFAULT, WIND_MAGNITUDE_DEFAULT,
+                   AbstractMouseController, Coordinate, HoldMouseButton)
 
 try:
     from ahk import AHK
