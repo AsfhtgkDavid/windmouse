@@ -23,12 +23,9 @@ class TestPackageImports:
 
     def test_import_constants(self):
         """Test importing default constants."""
-        from windmouse.core import (
-            GRAVITY_MAGNITUDE_DEFAULT,
-            WIND_MAGNITUDE_DEFAULT,
-            MAX_STEP_DEFAULT,
-            DAMPED_DISTANCE_DEFAULT,
-        )
+        from windmouse.core import (DAMPED_DISTANCE_DEFAULT,
+                                    GRAVITY_MAGNITUDE_DEFAULT,
+                                    MAX_STEP_DEFAULT, WIND_MAGNITUDE_DEFAULT)
 
         assert GRAVITY_MAGNITUDE_DEFAULT == 9
         assert WIND_MAGNITUDE_DEFAULT == 3
@@ -96,6 +93,7 @@ class TestModuleStructure:
 
         # Test that it's a generator function
         import types
+
         from windmouse.core import Coordinate
 
         result = wind_mouse(
@@ -105,8 +103,9 @@ class TestModuleStructure:
 
     def test_controller_abstract_methods(self):
         """Test that AbstractMouseController defines required abstract methods."""
-        from windmouse.core import AbstractMouseController
         import inspect
+
+        from windmouse.core import AbstractMouseController
 
         abstract_methods = {
             "tick",

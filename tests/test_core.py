@@ -3,12 +3,8 @@
 import numpy as np
 import pytest
 
-from windmouse.core import (
-    AbstractMouseController,
-    Coordinate,
-    HoldMouseButton,
-    wind_mouse,
-)
+from windmouse.core import (AbstractMouseController, Coordinate,
+                            HoldMouseButton, wind_mouse)
 
 
 class TestWindMouse:

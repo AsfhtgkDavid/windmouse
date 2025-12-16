@@ -12,8 +12,8 @@ class TestPyautoguiMouseController:
     @patch("windmouse.pyautogui_controller.pyautogui")
     def test_initialization(self, mock_pyautogui):
         """Test PyautoguiMouseController initialization."""
-        from windmouse.pyautogui_controller import PyautoguiMouseController
         from windmouse.core import Coordinate
+        from windmouse.pyautogui_controller import PyautoguiMouseController
 
         controller = PyautoguiMouseController(
             start_x=Coordinate(10),
@@ -30,8 +30,8 @@ class TestPyautoguiMouseController:
     @patch("windmouse.pyautogui_controller.pyautogui")
     def test_tick_moves_mouse(self, mock_pyautogui):
         """Test that tick calls pyautogui.moveTo."""
-        from windmouse.pyautogui_controller import PyautoguiMouseController
         from windmouse.core import Coordinate
+        from windmouse.pyautogui_controller import PyautoguiMouseController
 
         mock_pyautogui.position.return_value = Mock(x=0, y=0)
 
@@ -65,8 +65,8 @@ class TestPyautoguiMouseController:
     @patch("windmouse.pyautogui_controller.pyautogui")
     def test_hold_mouse_button(self, mock_pyautogui):
         """Test holding mouse button."""
-        from windmouse.pyautogui_controller import PyautoguiMouseController
         from windmouse.core import HoldMouseButton
+        from windmouse.pyautogui_controller import PyautoguiMouseController
 
         controller = PyautoguiMouseController()
 
@@ -79,8 +79,8 @@ class TestPyautoguiMouseController:
     @patch("windmouse.pyautogui_controller.pyautogui")
     def test_release_mouse_button(self, mock_pyautogui):
         """Test releasing mouse button."""
-        from windmouse.pyautogui_controller import PyautoguiMouseController
         from windmouse.core import HoldMouseButton
+        from windmouse.pyautogui_controller import PyautoguiMouseController
 
         controller = PyautoguiMouseController()
 
@@ -93,8 +93,8 @@ class TestPyautoguiMouseController:
     @patch("windmouse.pyautogui_controller.pyautogui")
     def test_move_to_target_complete_movement(self, mock_pyautogui):
         """Test complete movement with move_to_target."""
-        from windmouse.pyautogui_controller import PyautoguiMouseController
         from windmouse.core import Coordinate
+        from windmouse.pyautogui_controller import PyautoguiMouseController
 
         mock_pyautogui.position.return_value = Mock(x=0, y=0)
 
@@ -113,8 +113,8 @@ class TestPyautoguiMouseController:
     @patch("windmouse.pyautogui_controller.pyautogui")
     def test_move_with_drag(self, mock_pyautogui):
         """Test movement with button held (drag)."""
-        from windmouse.pyautogui_controller import PyautoguiMouseController
         from windmouse.core import Coordinate, HoldMouseButton
+        from windmouse.pyautogui_controller import PyautoguiMouseController
 
         mock_pyautogui.position.return_value = Mock(x=0, y=0)
 

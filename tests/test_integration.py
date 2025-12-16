@@ -3,11 +3,7 @@
 from unittest.mock import Mock, patch
 
 from windmouse.ahk_controller import AHKMouseController
-from windmouse.core import (
-    Coordinate,
-    HoldMouseButton,
-    wind_mouse,
-)
+from windmouse.core import Coordinate, HoldMouseButton, wind_mouse
 
 
 class TestIntegrationPyAutoGUI:
