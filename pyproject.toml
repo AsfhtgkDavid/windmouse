@@ -3,7 +3,7 @@ name = "windmouse"
 version = "1.0.0"
 description = "Human-like mouse movement library implementing the WindMouse algorithm for bot detection avoidance"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
     {name = "WindMouse Contributors"}
@@ -21,7 +21,7 @@ classifiers = [
     "Topic :: Software Development :: Testing",
 ]
 dependencies = [
-    "numpy>=1.20",
+    "numpy>=1.22.0",
 ]
 
 [project.urls]
@@ -31,11 +31,11 @@ Repository = "https://github.com/AsfhtgkDavid/windmouse"
 Issues = "https://github.com/AsfhtgkDavid/windmouse/issues"
 
 [project.optional-dependencies]
-ahk = ["ahk>=1.8.4"]
-pyautogui = ["pyautogui>=0.9.54"]
+ahk = ["ahk>=1.0.0"]
+pyautogui = ["pyautogui>=0.9.50"]
 all = [
-    "ahk>=1.8.4",
-    "pyautogui>=0.9.54",
+    "ahk>=1.0.0",
+    "pyautogui>=0.9.50",
 ]
 
 [build-system]
@@ -53,29 +53,29 @@ windmouse = "src"
 
 [dependency-groups]
 ahk = [
-    "ahk>=1.8.4",
+    "ahk>=1.0.0",
 ]
 all = [
-    "ahk>=1.8.4",
-    "pyautogui>=0.9.54",
+    "ahk>=1.0.0",
+    "pyautogui>=0.9.50",
 ]
 dev = [
-    "black>=25.11.0",
-    "flake8>=7.3.0",
-    "isort>=7.0.0",
-    "mypy>=1.19.0",
-    "pylint>=4.0.4",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "isort>=5.10.0",
+    "mypy>=0.990",
+    "pylint>=2.15.0",
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "pytest-xdist>=3.0.0",
 ]
 docs = [
-    "sphinx>=7.0.0",
-    "sphinx-rtd-theme>=2.0.0",
-    "sphinx-autodoc-typehints>=1.25.0",
+    "sphinx>=4.0.0",
+    "sphinx-rtd-theme>=1.0.0",
+    "sphinx-autodoc-typehints>=1.12.0",
 ]
 pyautogui = [
-    "pyautogui>=0.9.54",
+    "pyautogui>=0.9.50",
 ]
 test = [
     "pytest>=7.0.0",

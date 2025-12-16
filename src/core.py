@@ -1,5 +1,7 @@
 """Core module for mouse movement using WindMouse algorithm."""
 
+from __future__ import annotations
+
 import enum
 import time
 from abc import ABC, abstractmethod

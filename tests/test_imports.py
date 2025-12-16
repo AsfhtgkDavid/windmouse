@@ -60,28 +60,6 @@ class TestPackageImports:
             AbstractMouseController()
 
 
-class TestPackageVersion:
-    """Test package versioning."""
-
-    def test_version_in_pyproject(self):
-        """Test that version is defined in pyproject.toml."""
-        import tomllib
-        from pathlib import Path
-
-        pyproject_path = Path(__file__).parent.parent / "pyproject.toml"
-
-        if pyproject_path.exists():
-            with open(pyproject_path, "rb") as f:
-                data = tomllib.load(f)
-
-            assert "project" in data
-            assert "version" in data["project"]
-
-            version = data["project"]["version"]
-            assert isinstance(version, str)
-            assert len(version.split(".")) >= 2  # At least major.minor
-
-
 class TestModuleStructure:
     """Test module structure and organization."""
 
