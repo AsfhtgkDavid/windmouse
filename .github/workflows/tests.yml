@@ -58,12 +58,3 @@ jobs:
     - name: Install dependencies
       run: |
         uv sync --dev --locked
-
-    - name: Check formatting with black
-      run: |
-        black --check src/ tests/
-
-    - name: Type check with mypy
-      run: |
-        mypy src/ --ignore-missing-imports
-      continue-on-error: true

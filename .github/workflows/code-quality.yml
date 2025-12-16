@@ -27,7 +27,7 @@ jobs:
 
     - name: Check code formatting with black
       run: |
-        black --check --diff src/ tests/
+        uv run black --check --diff src/ tests/
 
     - name: Check import sorting with isort
       run: |
