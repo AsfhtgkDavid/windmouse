@@ -31,16 +31,16 @@ jobs:
 
     - name: Check import sorting with isort
       run: |
-        isort --check-only --diff src/ tests/
+        uv run isort --check-only --diff src/ tests/
 
     - name: Lint with flake8
       run: |
-        flake8 src/ tests/ --extend-ignore=E203,W503
+        uv run flake8 src/ tests/ --extend-ignore=E203,W503
       continue-on-error: true
 
     - name: Lint with pylint
       run: |
-        pylint src/ --disable=C0111,R0913,R0902,C0103
+        uv run pylint src/ --disable=C0111,R0913,R0902,C0103
       continue-on-error: true
 
     - name: Type check with mypy
