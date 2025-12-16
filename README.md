@@ -1,6 +1,6 @@
 # WindMouse
 
-[![codecov](https://codecov.io/gh/USERNAME/windmouse/branch/main/graph/badge.svg)](https://codecov.io/gh/USERNAME/windmouse)
+[![codecov](https://codecov.io/gh/AsfhtgkDavid/windmouse/branch/main/graph/badge.svg)](https://codecov.io/gh/AsfhtgkDavid/windmouse)
 [![PyPI - Version](https://img.shields.io/pypi/v/windmouse)](https://pypi.org/project/windmouse/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/windmouse/badge/?version=latest)](https://windmouse.readthedocs.io/en/latest/?badge=latest)
