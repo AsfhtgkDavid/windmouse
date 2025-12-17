@@ -4,6 +4,7 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/windmouse)](https://pypi.org/project/windmouse/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/windmouse/badge/?version=latest)](https://windmouse.readthedocs.io/en/latest/?badge=latest)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
 **WindMouse** is a Python library that generates human-like mouse movements to avoid bot detection in automation scripts. It implements the WindMouse algorithm, which creates realistic, non-linear trajectories with variable speed—mimicking natural human mouse behavior.
 
