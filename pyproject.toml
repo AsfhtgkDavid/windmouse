@@ -1,6 +1,6 @@
 [project]
 name = "windmouse"
-version = "1.0.0"
+version = "1.0.1"
 description = "Human-like mouse movement library implementing the WindMouse algorithm for bot detection avoidance"
 readme = "README.md"
 requires-python = ">=3.8"
