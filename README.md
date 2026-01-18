@@ -2,7 +2,7 @@
 
 [![codecov](https://codecov.io/gh/AsfhtgkDavid/windmouse/branch/main/graph/badge.svg)](https://codecov.io/gh/AsfhtgkDavid/windmouse)
 [![PyPI - Version](https://img.shields.io/pypi/v/windmouse)](https://pypi.org/project/windmouse/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/windmouse/badge/?version=latest)](https://windmouse.readthedocs.io/en/latest/?badge=latest)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
@@ -175,7 +175,14 @@ Please ensure your code follows the project's style guidelines and includes appr
 
 ## License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.
+
+Portions of this software are derived from the WindMouse reference implementation by Ben Land and have been refactored and modified.
+
+Original work:
+https://ben.land/post/2021/04/25/windmouse-human-mouse-movement/
+
+See the [LICENSE](LICENSE) file for details.
 
 ---
 
