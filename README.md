@@ -2,7 +2,7 @@
 
 [![codecov](https://codecov.io/gh/AsfhtgkDavid/windmouse/branch/main/graph/badge.svg)](https://codecov.io/gh/AsfhtgkDavid/windmouse)
 [![PyPI - Version](https://img.shields.io/pypi/v/windmouse)](https://pypi.org/project/windmouse/)
-[![License: MIT](https://img.shields.io/badge/License-GPL-yellow.svg)](LICENSE)
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-yellow.svg)](LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/windmouse/badge/?version=latest)](https://windmouse.readthedocs.io/en/latest/?badge=latest)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 
