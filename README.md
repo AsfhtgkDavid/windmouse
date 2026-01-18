@@ -175,7 +175,14 @@ Please ensure your code follows the project's style guidelines and includes appr
 
 ## License
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.
+
+Portions of this software are derived from the WindMouse reference implementation by Ben Land and have been refactored and modified.
+
+Original work:
+https://ben.land/post/2021/04/25/windmouse-human-mouse-movement/
+
+See the [LICENSE](LICENSE) file for details.
 
 ---
 
