@@ -41,7 +41,7 @@ jobs:
 
     - name: Type check with mypy
       run: |
-        mypy src/ --ignore-missing-imports
+        uv run mypy src/ --ignore-missing-imports
       continue-on-error: true
 
   security:
@@ -57,11 +57,6 @@ jobs:
         python-version: "3.12"
         enable-cache: true
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
     - name: Install dependencies
       run: |
         uv sync --dev --locked --all-extras
@@ -69,11 +64,10 @@ jobs:
 
     - name: Check dependencies for vulnerabilities
       run: |
-        safety check --json
+        uv run safety check --json
       continue-on-error: true
 
     - name: Security scan with bandit
       run: |
-        bandit -r src/ -ll
+        uv run bandit -r src/ -ll
       continue-on-error: true
-
